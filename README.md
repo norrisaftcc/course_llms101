@@ -196,3 +196,69 @@ llm-enterprise-course/
     ├── cost-calculator/           # Spreadsheet for estimating API costs
     ├── reading-list/              # Recommended books and papers
     └── troubleshooting/           # Common issues and solutions
+
+
+# Example Plan of Study
+
+# Large Language Models in Enterprise Applications
+## 8-Session Course Plan (2 hours per session)
+
+### Session 1: Introduction to Large Language Models
+- **Topics**: Evolution of NLP to LLMs; how LLMs work; capabilities and limitations
+- **Activities**: Hands-on exploration with public LLM interfaces (ChatGPT, Claude, etc.)
+- **Assignment**: Document 5 potential applications for LLMs in enterprise settings
+- **Learning Outcome**: Understand the foundational concepts and potential of LLM technology
+
+### Session 2: LLM Provider Landscape
+- **Topics**: Deep dive into offerings from OpenAI, Anthropic, Google, Meta, Cohere, Mistral
+- **Activities**: Comparative analysis of models across different tasks
+- **Assignment**: Evaluate 3 models on the same set of prompts and analyze differences
+- **Learning Outcome**: Critically evaluate different LLM providers and their unique strengths
+
+### Session 3: Effective One-on-One LLM Interaction
+- **Topics**: Conversation design; context management; iterative refinement
+- **Activities**: Building effective workflows for different use cases (writing, coding, research)
+- **Assignment**: Create a process document for an LLM-assisted workflow relevant to your field
+- **Learning Outcome**: Develop strategies for productive human-LLM collaboration
+
+### Session 4: API Integration Fundamentals
+- **Topics**: API key management; security best practices; rate limits; cost optimization
+- **Activities**: Setting up developer accounts; making basic API calls
+- **Assignment**: Create a simple application that makes LLM API calls with proper error handling
+- **Learning Outcome**: Safely integrate LLM capabilities via APIs in enterprise contexts
+
+### Session 5: Prompt Engineering Foundations
+- **Topics**: Instruction clarity; context provision; few-shot examples; output formatting
+- **Activities**: Prompt optimization workshop with real-time testing
+- **Assignment**: Develop and test a set of prompts for a specific enterprise application
+- **Learning Outcome**: Create effective prompts that yield consistent, useful outputs
+
+### Session 6: Advanced Prompt Engineering
+- **Topics**: Chain-of-thought; self-critique; system messages; handling complex tasks
+- **Activities**: Building multi-step prompting strategies; troubleshooting difficult cases
+- **Assignment**: Design an advanced prompting strategy for a complex enterprise task
+- **Learning Outcome**: Apply sophisticated prompting techniques to solve challenging problems
+
+### Session 7: LLMs for Administrative Automation
+- **Topics**: Content generation; data extraction; workflow automation; customer service
+- **Activities**: Building LLM-powered automation for common enterprise tasks
+- **Assignment**: Implement an LLM-powered solution for an administrative challenge
+- **Learning Outcome**: Apply LLMs to reduce administrative overhead in business processes
+
+### Session 8: Advanced Integration Tools & Final Projects
+- **Topics**: n8n workflow automation; Voiceflow conversational design; future directions
+- **Activities**: Hands-on with integration platforms; final project presentations
+- **Assignment**: Complete project demonstrating LLM integration in an enterprise context
+- **Learning Outcome**: Understand and implement advanced LLM integration approaches
+
+## Assessment Structure
+- **Weekly Assignments**: 40%
+- **Class Participation & Exercises**: 20% 
+- **Final Project**: 40%
+
+## Resources Required
+- LLM API credits (approximately $10-15 per student)
+- GitHub repository with starter code and examples
+- Demo accounts for n8n and Voiceflow
+- Access to enterprise-relevant datasets for practice
+
