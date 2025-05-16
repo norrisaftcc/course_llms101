@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>From Zero to AI App in 90 Minutes - Free LLM Course</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        
+        .tagline {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: #4CAF50;
+            color: white;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .benefits {
+            padding: 60px 20px;
+            background: #f8f9fa;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .benefit-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .benefit-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        
+        .what-youll-build {
+            padding: 60px 20px;
+        }
+        
+        .demo-image {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin: 30px 0;
+        }
+        
+        .agenda {
+            padding: 60px 20px;
+            background: #f8f9fa;
+        }
+        
+        .agenda-timeline {
+            max-width: 600px;
+            margin: 40px auto;
+        }
+        
+        .timeline-item {
+            display: flex;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+        
+        .timeline-time {
+            font-weight: bold;
+            width: 80px;
+            color: #667eea;
+        }
+        
+        .timeline-content {
+            flex: 1;
+            padding-left: 20px;
+            border-left: 3px solid #667eea;
+        }
+        
+        .instructor {
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .instructor-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 20px 0;
+        }
+        
+        .faq {
+            padding: 60px 20px;
+            background: #f8f9fa;
+        }
+        
+        .faq-item {
+            margin-bottom: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .faq-question {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #667eea;
+        }
+        
+        .register {
+            padding: 80px 20px;
+            background: #333;
+            color: white;
+            text-align: center;
+        }
+        
+        .countdown {
+            font-size: 1.5em;
+            margin: 30px 0;
+            color: #4CAF50;
+        }
+        
+        footer {
+            padding: 20px;
+            text-align: center;
+            background: #222;
+            color: #999;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .tagline {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>From Zero to AI App in 90 Minutes</h1>
+            <p class="tagline">Build Your First AI-Powered Application - No Experience Required!</p>
+            <p style="font-size: 1.2em; margin-bottom: 30px;">FREE Live Workshop • [DATE] at [TIME]</p>
+            <a href="#register" class="cta-button">Reserve Your Spot Now</a>
+            <p style="margin-top: 20px; opacity: 0.8;">Limited to 30 participants</p>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 2.5em; margin-bottom: 20px;">Why Attend?</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">🚀</div>
+                    <h3>Launch Your AI Journey</h3>
+                    <p>Go from complete beginner to building AI applications in just 90 minutes</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">💻</div>
+                    <h3>Hands-On Coding</h3>
+                    <p>Build a real, working application that you can use and extend</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🤝</div>
+                    <h3>Expert Guidance</h3>
+                    <p>Learn from experienced instructors with real-world AI implementation experience</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">📈</div>
+                    <h3>Career Boost</h3>
+                    <p>Add AI skills to your resume and stand out in the job market</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">💰</div>
+                    <h3>Completely Free</h3>
+                    <p>No hidden costs - just bring your laptop and enthusiasm</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎓</div>
+                    <h3>Certificate Included</h3>
+                    <p>Receive a certificate of completion to showcase your new skills</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What You'll Build -->
+    <section class="what-youll-build">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 2.5em; margin-bottom: 40px;">What You'll Build</h2>
+            <div style="text-align: center;">
+                <p style="font-size: 1.2em; margin-bottom: 30px;">
+                    In this session, you'll create an AI-powered blog platform that can:
+                </p>
+                <ul style="text-align: left; max-width: 600px; margin: 0 auto; font-size: 1.1em;">
+                    <li>✍️ Generate blog posts on any topic automatically</li>
+                    <li>🎨 Adjust writing tone from formal to casual</li>
+                    <li>📊 Create SEO-optimized metadata</li>
+                    <li>💾 Store posts in a real database</li>
+                    <li>🌐 Deploy to the web (bonus content)</li>
+                </ul>
+                <img src="demo-screenshot.png" alt="Demo of AI Blog App" class="demo-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- Agenda -->
+    <section class="agenda">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 2.5em; margin-bottom: 40px;">Session Agenda</h2>
+            <div class="agenda-timeline">
+                <div class="timeline-item">
+                    <span class="timeline-time">0-10 min</span>
+                    <div class="timeline-content">
+                        <strong>Introduction to LLMs</strong>
+                        <p>What they are and why they matter for your career</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-time">10-20 min</span>
+                    <div class="timeline-content">
+                        <strong>Your First AI Call</strong>
+                        <p>Make your first API call and see AI in action</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-time">20-65 min</span>
+                    <div class="timeline-content">
+                        <strong>Build the Blog App</strong>
+                        <p>Step-by-step coding to create your AI application</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-time">65-80 min</span>
+                    <div class="timeline-content">
+                        <strong>Customize & Extend</strong>
+                        <p>Add features and personalize your application</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-time">80-90 min</span>
+                    <div class="timeline-content">
+                        <strong>Next Steps & Q&A</strong>
+                        <p>Resources, community, and answering your questions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instructor -->
+    <section class="instructor">
+        <div class="container">
+            <h2 style="font-size: 2.5em; margin-bottom: 30px;">Meet Your Instructor</h2>
+            <img src="instructor-photo.jpg" alt="Instructor Photo" class="instructor-image">
+            <h3 style="font-size: 1.5em; margin: 20px 0;">[Instructor Name]</h3>
+            <p style="max-width: 600px; margin: 0 auto; font-size: 1.1em;">
+                [Instructor bio - experience with AI, teaching background, why they're passionate about helping others learn]
+            </p>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 2.5em; margin-bottom: 40px;">Frequently Asked Questions</h2>
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div class="faq-item">
+                    <div class="faq-question">Do I need programming experience?</div>
+                    <div class="faq-answer">Basic programming knowledge is helpful but not required. We'll guide you through every step!</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">What do I need to bring?</div>
+                    <div class="faq-answer">Just a laptop with Python installed. We'll send detailed setup instructions before the session.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Is it really free?</div>
+                    <div class="faq-answer">Yes! This is a free introduction to our full course. No credit card required.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">What if I can't attend live?</div>
+                    <div class="faq-answer">We'll send a recording to all registered participants, but live attendance is highly recommended for the best experience.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">What happens after the session?</div>
+                    <div class="faq-answer">You'll have access to our Discord community, resources, and a special discount on our full course.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration -->
+    <section class="register" id="register">
+        <div class="container">
+            <h2 style="font-size: 2.5em; margin-bottom: 30px;">Ready to Start Your AI Journey?</h2>
+            <p class="countdown">Next Session: [DATE] at [TIME]</p>
+            <p style="font-size: 1.3em; margin-bottom: 30px;">Only 30 spots available - Register now!</p>
+            
+            <!-- Registration Form -->
+            <form style="max-width: 500px; margin: 0 auto;">
+                <input type="text" placeholder="Your Name" required 
+                       style="width: 100%; padding: 15px; margin: 10px 0; border: none; border-radius: 5px; font-size: 1.1em;">
+                <input type="email" placeholder="Your Email" required
+                       style="width: 100%; padding: 15px; margin: 10px 0; border: none; border-radius: 5px; font-size: 1.1em;">
+                <select style="width: 100%; padding: 15px; margin: 10px 0; border: none; border-radius: 5px; font-size: 1.1em;">
+                    <option>What's your experience level?</option>
+                    <option>Complete beginner</option>
+                    <option>Some programming experience</option>
+                    <option>Professional developer</option>
+                </select>
+                <button type="submit" class="cta-button" style="width: 100%; margin-top: 20px;">
+                    Reserve My Free Spot
+                </button>
+            </form>
+            
+            <p style="margin-top: 30px; opacity: 0.8;">
+                Questions? Email us at training@llmcourse.com
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 LLM Course. All rights reserved. | <a href="#" style="color: #999;">Privacy Policy</a></p>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelector('a[href="#register"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('register').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        // Form submission (replace with actual handler)
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for registering! Check your email for confirmation.');
+        });
+    </script>
+</body>
+</html>
