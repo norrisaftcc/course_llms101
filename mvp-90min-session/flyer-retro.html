@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 Build an AI App in 90 Minutes! | Retro Computing Meets Modern AI</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap');
+        
+        :root {
+            --green: #00ff00;
+            --amber: #ffb000;
+            --red: #ff0000;
+            --darkgreen: #00aa00;
+            --black: #0a0a0a;
+            --gray: #1a1a1a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: var(--black);
+            color: var(--green);
+            font-family: 'VT323', monospace;
+            font-size: 20px;
+            line-height: 1.4;
+            cursor: crosshair;
+            overflow-x: hidden;
+        }
+        
+        .crt {
+            animation: textShadow 1.6s infinite;
+        }
+        
+        @keyframes textShadow {
+            0% { text-shadow: 0.4389924193300864px 0 1px rgba(0,30,255,0.5), -0.4389924193300864px 0 1px rgba(255,0,80,0.3), 0 0 3px; }
+            5% { text-shadow: 2.7928974010788217px 0 1px rgba(0,30,255,0.5), -2.7928974010788217px 0 1px rgba(255,0,80,0.3), 0 0 3px; }
+            100% { text-shadow: 2.6208764473832513px 0 1px rgba(0,30,255,0.5), -2.6208764473832513px 0 1px rgba(255,0,80,0.3), 0 0 3px; }
+        }
+        
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                rgba(18, 16, 16, 0) 50%,
+                rgba(0, 0, 0, 0.25) 50%
+            );
+            background-size: 100% 2px;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .terminal {
+            border: 3px solid var(--green);
+            padding: 20px;
+            margin: 20px 0;
+            background: var(--gray);
+            box-shadow: inset 0 0 20px rgba(0, 255, 0, 0.2);
+        }
+        
+        .blink {
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+        
+        h1 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 28px;
+            text-align: center;
+            color: var(--amber);
+            margin: 30px 0;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        h2 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 18px;
+            color: var(--green);
+            margin: 20px 0;
+            text-decoration: underline;
+        }
+        
+        .ascii-art {
+            text-align: center;
+            font-size: 16px;
+            line-height: 1;
+            color: var(--darkgreen);
+            margin: 20px 0;
+        }
+        
+        .highlight {
+            color: var(--amber);
+            font-weight: bold;
+        }
+        
+        .command {
+            font-family: 'VT323', monospace;
+            background: black;
+            color: var(--green);
+            padding: 5px 10px;
+            border: 1px solid var(--green);
+            display: inline-block;
+            margin: 5px 0;
+        }
+        
+        ul {
+            list-style: none;
+            margin-left: 20px;
+        }
+        
+        ul li:before {
+            content: "▸ ";
+            color: var(--amber);
+        }
+        
+        .warning {
+            color: var(--red);
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            50% { opacity: 0.5; }
+        }
+        
+        .register-button {
+            display: block;
+            width: 80%;
+            margin: 30px auto;
+            padding: 20px;
+            background: var(--darkgreen);
+            color: var(--black);
+            text-align: center;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 16px;
+            text-decoration: none;
+            border: 3px solid var(--green);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .register-button:hover {
+            background: var(--green);
+            box-shadow: 0 0 20px var(--green);
+            transform: scale(1.05);
+        }
+        
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.1;
+            z-index: 0;
+            overflow: hidden;
+        }
+        
+        .matrix-col {
+            position: absolute;
+            top: -100%;
+            font-size: 16px;
+            line-height: 16px;
+            color: var(--green);
+            animation: matrix-fall linear infinite;
+        }
+        
+        @keyframes matrix-fall {
+            to { transform: translateY(200vh); }
+        }
+        
+        .glitch {
+            position: relative;
+            animation: glitch 2s infinite;
+        }
+        
+        @keyframes glitch {
+            2%, 64% {
+                transform: translate(2px, 0) skew(0deg);
+            }
+            4%, 60% {
+                transform: translate(-2px, 0) skew(0deg);
+            }
+            62% {
+                transform: translate(0, 0) skew(5deg);
+            }
+        }
+        
+        .ticker {
+            background: var(--darkgreen);
+            color: var(--black);
+            padding: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        
+        .ticker-content {
+            display: inline-block;
+            animation: ticker 20s linear infinite;
+        }
+        
+        @keyframes ticker {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        #date-display {
+            text-align: center;
+            color: var(--amber);
+            margin: 20px 0;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="scanlines"></div>
+    <div class="matrix-bg" id="matrix"></div>
+    
+    <div class="container crt">
+        <div class="ascii-art">
+<pre>
+    ___    ____   __  __  ____  _   _  _  _  _____ _____ ____  
+   / _ \  |  _ \ |  \/  ||  _ \| | | || || ||_   _|| ____/ ___| 
+  / /_\ \ | |_) || |\/| || |_) | | | || || |  | |  |  _| \___ \ 
+ / /   \ \|  _ < | |  | ||  __/| |_| ||_||_|  | |  | |___ ___) |
+/_/     \_|_| \_\|_|  |_||_|    \___/  \__/   |_|  |_____|____/ 
+                                                                
+      _____________ ________________ _____________              
+     < LEARN AI IN >< 90 MINUTES! >< FREE CLASS >              
+      ¯¯¯¯¯¯¯¯¯¯¯¯¯ ¯¯¯¯¯¯¯¯¯¯¯¯¯¯ ¯¯¯¯¯¯¯¯¯¯¯¯¯              
+</pre>
+        </div>
+        
+        <h1 class="glitch">From Zero to AI App in 90 Minutes</h1>
+        
+        <div class="ticker">
+            <span class="ticker-content">
+                +++ BREAKING +++ LIMITED SEATS AVAILABLE +++ NO EXPERIENCE REQUIRED +++ 
+                BUILD REAL AI APPLICATIONS +++ FREE SESSION +++ REGISTER NOW +++ 
+            </span>
+        </div>
+        
+        <div class="terminal">
+            <p>> SYSTEM: Welcome to the Future of Computing</p>
+            <p>> DATE: <span id="date-display"></span></p>
+            <p>> STATUS: <span class="highlight">REGISTRATION OPEN</span></p>
+            <p>> LOADING COURSE DETAILS...<span class="blink">_</span></p>
+        </div>
+        
+        <div class="terminal">
+            <h2>> WHAT YOU'LL LEARN</h2>
+            <p>In this <span class="highlight">hands-on workshop</span>, you'll master:</p>
+            
+            <h3 style="color: var(--amber); margin-top: 20px;">▼ LLM PROVIDERS</h3>
+            <ul>
+                <li>OpenAI (GPT-3.5/GPT-4) - Industry standard</li>
+                <li>Anthropic Claude - Best for analysis</li>
+                <li>Google Gemini - Multimodal capabilities</li>
+                <li>Open Source (Llama, Mistral) - Free alternatives</li>
+            </ul>
+            
+            <h3 style="color: var(--amber); margin-top: 20px;">▼ SECURITY RED FLAGS</h3>
+            <ul class="warning">
+                <li>NEVER share personal information (SSN, passwords)</li>
+                <li>AVOID uploading confidential company data</li>
+                <li>DON'T trust AI with financial/medical advice</li>
+                <li>WATCH for hallucinations (confident but wrong)</li>
+            </ul>
+            
+            <h3 style="color: var(--amber); margin-top: 20px;">▼ PROMPT ENGINEERING</h3>
+            <ul>
+                <li>The PERFECT formula for consistent results</li>
+                <li>Role-based prompting techniques</li>
+                <li>Temperature & parameter tuning</li>
+                <li>Multi-shot examples for accuracy</li>
+            </ul>
+            
+            <h3 style="color: var(--amber); margin-top: 20px;">▼ ADMIN AUTOMATION</h3>
+            <ul>
+                <li>Email drafting & responses</li>
+                <li>Meeting notes & summaries</li>
+                <li>Document generation & analysis</li>
+                <li>Data extraction & reporting</li>
+            </ul>
+        </div>
+        
+        <div class="terminal">
+            <h2>> WHAT YOU'LL BUILD</h2>
+            <pre style="color: var(--darkgreen);">
+┌─────────────────────────────────┐
+│  AI-POWERED BLOG GENERATOR      │
+├─────────────────────────────────┤
+│ • Auto-generate content         │
+│ • Adjustable writing style      │
+│ • SEO optimization              │
+│ • Database integration          │
+│ • Live deployment               │
+└─────────────────────────────────┘
+            </pre>
+            <p class="command">$ streamlit run ai_blog.py</p>
+        </div>
+        
+        <div class="terminal">
+            <h2>> PREREQUISITES</h2>
+            <p>Just bring:</p>
+            <ul>
+                <li>Laptop with Python 3.8+</li>
+                <li>Internet connection</li>
+                <li>Curiosity about AI</li>
+                <li>90 minutes of your time</li>
+            </ul>
+            <p style="margin-top: 20px;">
+                <span class="highlight">NO EXPERIENCE REQUIRED!</span> 
+                We'll guide you through everything.
+            </p>
+        </div>
+        
+        <a href="#register" class="register-button">
+            [ REGISTER NOW - FREE SESSION ]
+        </a>
+        
+        <div class="terminal">
+            <h2>> INSTRUCTOR</h2>
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <div class="ascii-art" style="flex-shrink: 0;">
+<pre style="font-size: 12px; line-height: 1;">
+    _____
+   /     \
+  | () () |
+   \  ~  /
+    |___|
+</pre>
+                </div>
+                <div>
+                    <p><span class="highlight">[INSTRUCTOR NAME]</span></p>
+                    <p>10+ years in AI/ML</p>
+                    <p>Former [COMPANY] engineer</p>
+                    <p>Taught 1000+ developers</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="terminal">
+            <h2>> TESTIMONIALS</h2>
+            <p>"<span class="highlight">Built my first AI app in under 2 hours!</span>"</p>
+            <p style="text-align: right;">- Sarah K., Software Engineer</p>
+            
+            <p style="margin-top: 20px;">"<span class="highlight">Finally understand how to use AI at work</span>"</p>
+            <p style="text-align: right;">- Mike T., Project Manager</p>
+            
+            <p style="margin-top: 20px;">"<span class="highlight">The prompt engineering tips alone were worth it</span>"</p>
+            <p style="text-align: right;">- Lisa C., Data Analyst</p>
+        </div>
+        
+        <div class="ticker">
+            <span class="ticker-content">
+                +++ NEXT SESSION: SATURDAY 2:00 PM +++ LIMITED TO 30 STUDENTS +++ 
+                50% OFF FULL COURSE FOR ATTENDEES +++ REGISTER NOW +++ 
+            </span>
+        </div>
+        
+        <div style="text-align: center; margin: 40px 0;">
+            <p class="warning">⚠️ SEATING LIMITED TO 30 PARTICIPANTS ⚠️</p>
+            <a href="#register" class="register-button">
+                [ SECURE YOUR SPOT NOW ]
+            </a>
+        </div>
+        
+        <div style="text-align: center; color: var(--darkgreen); margin-top: 40px;">
+            <p>Questions? Email: training@retroai.tech</p>
+            <p>© 2024 RetroAI Academy | Terms | Privacy</p>
+        </div>
+    </div>
+    
+    <script>
+        // Matrix rain effect
+        const matrix = document.getElementById('matrix');
+        const columns = Math.floor(window.innerWidth / 20);
+        
+        for (let i = 0; i < columns; i++) {
+            const col = document.createElement('div');
+            col.className = 'matrix-col';
+            col.style.left = i * 20 + 'px';
+            col.style.animationDuration = Math.random() * 10 + 5 + 's';
+            col.style.animationDelay = Math.random() * 5 + 's';
+            
+            let content = '';
+            for (let j = 0; j < 50; j++) {
+                content += Math.random() > 0.5 ? '1' : '0';
+                content += '<br>';
+            }
+            col.innerHTML = content;
+            matrix.appendChild(col);
+        }
+        
+        // Update date
+        const dateDisplay = document.getElementById('date-display');
+        const nextSaturday = new Date();
+        nextSaturday.setDate(nextSaturday.getDate() + (6 - nextSaturday.getDay()));
+        dateDisplay.textContent = nextSaturday.toLocaleDateString() + ' 2:00 PM';
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href="#register"]').forEach(anchor => {
+            anchor.addEventListener('click', (e) => {
+                e.preventDefault();
+                alert('Registration page would open here!');
+            });
+        });
+        
+        // Terminal typing effect
+        const terminals = document.querySelectorAll('.terminal p');
+        terminals.forEach((p, index) => {
+            p.style.opacity = '0';
+            setTimeout(() => {
+                p.style.opacity = '1';
+                p.style.animation = 'fadeIn 0.5s';
+            }, index * 100);
+        });
+    </script>
+</body>
+</html>
