@@ -65,6 +65,13 @@ Understanding the fundamentals of LLM technology and exploring potential enterpr
 ### Session 2: LLM Provider Landscape
 Comparing offerings from major providers including OpenAI, Anthropic, Google, Meta, and others.
 
+**Materials Available**:
+- Session outline with detailed timing
+- Hands-on provider comparison exercises
+- Provider evaluation matrix template
+- Quick reference handout with pricing
+- Weekly assignment: Provider comparison tool
+
 ### Session 3: Effective One-on-One LLM Interaction
 Developing strategies for productive human-LLM collaboration and workflow design.
 

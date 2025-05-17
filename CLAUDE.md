@@ -49,8 +49,41 @@ git push origin firstname-lastname
 3. When adding new materials, follow the existing directory structure pattern
 4. Maintain consistency in file naming and organization across sessions
 
+## Course Content Status
+
+### Completed Materials
+1. **Session 1: Introduction to LLMs**
+   - Session outline with timing
+   - Hands-on workshop exercises
+   - Assignment: Identifying LLM opportunities
+   - Quick reference guide
+   - LLM readiness checklist
+
+2. **Session 2: LLM Provider Landscape** ✅
+   - Session outline with timing
+   - Hands-on provider comparison exercises (`session2_exercises.py`)
+   - Provider evaluation matrix template
+   - Quick reference handout with pricing
+   - Assignment: Provider comparison tool
+
+3. **Instructor Materials**
+   - INSTRUCTOR_BEST_PRACTICES.md - Comprehensive guide on course design
+   - SESSION_TEMPLATE.md - Standardized template for all sessions
+
+### Delivery Formats
+- **90-minute MVP Session**: Complete AI blog application using Streamlit + Supabase
+- **60-minute Lunch & Learn**: Condensed overview with interactive demos
+- **8-week Full Course**: Comprehensive curriculum (Sessions 1-2 completed)
+
 ## API Credits and Security
 
 - Each student receives approximately $15 worth of API credits
 - API key management instructions are in `resources/api-keys-guide/`
 - Security best practices are covered in `session-4-api-integration/security-guide/`
+
+## Next Steps
+
+1. Develop Session 3: Effective One-on-One LLM Interaction
+2. Create Session 4: API Integration Fundamentals  
+3. Build more example projects
+4. Set up technical infrastructure for demos
