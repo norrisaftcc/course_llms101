@@ -1,0 +1,102 @@
+# Dockerfile - Containerized SAGE MVP
+FROM python:3.11-slim
+
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements first for better caching
+COPY requirements.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY main.py .
+COPY ai_flows.py .
+COPY gemini.py .
+COPY db.py .
+COPY models.py .
+
+# Copy static files
+COPY static/ ./static/
+
+# Create directory for database
+RUN mkdir -p /app/data
+
+# Expose port
+EXPOSE 8000
+
+# Set environment variables
+ENV DATABASE_PATH=/app/data/sage.db
+ENV HOST=0.0.0.0
+ENV PORT=8000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')" || exit 1
+
+# Run the application
+CMD ["python", "main.py"]
+
+# ------- docker-compose.yml -------
+# Save this as docker-compose.yml
+
+# version: '3.8'
+# 
+# services:
+#   sage:
+#     build: .
+#     container_name: sage-mvp
+#     ports:
+#       - "8000:8000"
+#     environment:
+#       - GEMINI_API_KEY=${GEMINI_API_KEY}
+#       - DATABASE_PATH=/app/data/sage.db
+#     volumes:
+#       - sage-data:/app/data
+#       - ./static:/app/static:ro
+#     restart: unless-stopped
+#     healthcheck:
+#       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+#       interval: 30s
+#       timeout: 3s
+#       retries: 3
+# 
+# volumes:
+#   sage-data:
+#     driver: local
+
+# ------- .dockerignore -------
+# Save this as .dockerignore
+
+# venv/
+# __pycache__/
+# *.pyc
+# *.pyo
+# *.pyd
+# .Python
+# *.db
+# .env
+# .env.local
+# .git/
+# .gitignore
+# README.md
+# test_*.py
+# *.log
+# .DS_Store
+
+# ------- Usage -------
+# 
+# 1. Build and run with Docker:
+#    docker build -t sage-mvp .
+#    docker run -p 8000:8000 -e GEMINI_API_KEY=your_key sage-mvp
+#
+# 2. Or use docker-compose:
+#    docker-compose up -d
+#
+# 3. Access at http://localhost:8000

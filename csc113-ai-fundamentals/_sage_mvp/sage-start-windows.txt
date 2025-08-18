@@ -1,0 +1,110 @@
+@echo off
+REM start.bat - Quick start script for Windows
+
+echo.
+echo ======================================
+echo     SAGE MVP - AI Study Assistant
+echo ======================================
+echo.
+
+REM Check if Python is installed
+python --version >nul 2>&1
+if errorlevel 1 (
+    echo ERROR: Python is not installed or not in PATH
+    echo Please install Python from https://python.org
+    pause
+    exit /b 1
+)
+
+REM Check if virtual environment exists
+if not exist "venv" (
+    echo Creating virtual environment...
+    python -m venv venv
+    echo Virtual environment created!
+    echo.
+)
+
+REM Activate virtual environment
+echo Activating virtual environment...
+call venv\Scripts\activate.bat
+
+REM Check if dependencies are installed
+python -c "import fastapi" 2>nul
+if errorlevel 1 (
+    echo Installing dependencies...
+    pip install -r requirements.txt
+    echo.
+    echo Dependencies installed!
+    echo.
+)
+
+REM Check for .env file
+if not exist ".env" (
+    echo WARNING: No .env file found!
+    echo.
+    echo Creating .env from template...
+    copy .env.example .env
+    echo.
+    echo ============================================
+    echo   IMPORTANT: Add your GEMINI_API_KEY to .env
+    echo   Get one free at: https://aistudio.google.com/app/apikey
+    echo ============================================
+    echo.
+    pause
+    exit /b 1
+)
+
+REM Check if API key is placeholder
+findstr "your_gemini_api_key_here" .env >nul
+if not errorlevel 1 (
+    echo.
+    echo ============================================
+    echo   ERROR: GEMINI_API_KEY not configured!
+    echo.
+    echo   1. Get your free key at:
+    echo      https://aistudio.google.com/app/apikey
+    echo.
+    echo   2. Edit .env file and replace
+    echo      'your_gemini_api_key_here' with your actual key
+    echo ============================================
+    echo.
+    pause
+    exit /b 1
+)
+
+REM Create static directory if it doesn't exist
+if not exist "static" (
+    echo Creating static directory...
+    mkdir static
+)
+
+REM Check if index.html exists in static
+if not exist "static\index.html" (
+    echo WARNING: static\index.html not found!
+    echo Web interface may not work properly.
+    echo.
+)
+
+REM Clear screen and show startup info
+cls
+echo.
+echo ======================================
+echo     SAGE MVP - AI Study Assistant
+echo ======================================
+echo.
+echo Starting server...
+echo.
+echo Web Interface: http://localhost:8000
+echo API Docs:      http://localhost:8000/docs
+echo.
+echo Press Ctrl+C to stop the server
+echo ======================================
+echo.
+
+REM Start the application
+python main.py
+
+REM If we get here, the server stopped
+echo.
+echo Server stopped.
+pause
