@@ -219,6 +219,9 @@ This course operates under these principles:
 - **Education**: Understanding enables better decisions
 - **Community**: Shared knowledge benefits everyone
 
+## Content Standards
+This course uses industry-standard AI tools with default safety settings. Students are expected to evaluate AI outputs critically as part of their professional development.
+
 ## Instructor Notes
 
 ### Key Messages to Reinforce

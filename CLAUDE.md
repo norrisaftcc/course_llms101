@@ -1,89 +1,201 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Developer guidance for contributing to the **AI & Machine Learning in 2025** course - a privacy-first, vendor-independent approach to teaching AI/ML.
 
-## Project Overview
+## What This Course Actually Is
 
-This is the **course_llms101** repository, containing all materials for the "Large Language Models in Enterprise Applications" course. The course is designed for second-year students developing their first enterprise applications and focuses on integrating LLMs in business contexts through project-based learning.
+This is NOT another "enterprise AI" course that teaches vendor lock-in. We're building a course that:
+- **Respects data sovereignty** - Your prompts, your data, your choice
+- **Teaches portable skills** - Work with ANY provider or run locally
+- **Prioritizes privacy** - Understand what you're trading when you use "free" services
+- **Embraces open source** - Ollama, llama.cpp, Hugging Face first
+- **Treats students as adults** - Default API safety settings, critical thinking expected
+
+## Current Project Status (Honest Assessment)
+
+### ✅ What Actually Exists
+- **Core Philosophy**: Defined in `SYLLABUS_2025.md` and `CONTENT_STANDARDS.md`
+- **Session 1-2**: Basic materials from old enterprise-focused version (need refactoring)
+- **MVP Session**: 90-minute workshop with Streamlit + Supabase
+- **Some CSC113 materials**: In `csc113-ai-fundamentals/` (different course format)
+
+### ❌ What's Empty/Needs Work
+- **Sessions 3-8**: Directory structure exists but NO CONTENT
+- **Local-first labs**: Need to build Ollama/llama.cpp exercises
+- **Privacy tools**: Data audit tools, prompt sanitization not built
+- **Multi-provider support**: Abstraction layers not implemented
+- **Migration toolkit**: Vendor escape tools not created
 
 ## Repository Structure
 
-The repository is organized into 8 session directories:
-- `session-1-introduction/` - Introduction to Large Language Models
-- `session-2-provider-landscape/` - LLM Provider Landscape  
-- `session-3-one-on-one/` - Effective One-on-One LLM Interaction
-- `session-4-api-integration/` - API Integration Fundamentals
-- `session-5-prompt-engineering/` - Prompt Engineering Foundations
-- `session-6-advanced-prompting/` - Advanced Prompt Engineering
-- `session-7-admin-automation/` - LLMs for Administrative Automation
-- `session-8-advanced-tools/` - Advanced Integration Tools
-
-Each session directory contains:
-- `slides/` - Presentation materials
-- `exercises/` - In-class activities
-- `assignment/` - Weekly assignments with instructions
-- `resources/` - Additional materials
-
-Additional directories:
-- `example-projects/` - Complete reference implementations
-- `resources/` - Cross-session materials and guides
-
-## Common Commands
-
-### Git Operations
-```bash
-# Clone the repository
-git clone https://github.com/your-university/llm-enterprise-course.git
-
-# Submit assignments (on personal branch)
-git checkout -b firstname-lastname
-git add .
-git commit -m "Submission for Assignment X"
-git push origin firstname-lastname
+```
+course_llms101/
+├── SYLLABUS_2025.md          # Our actual philosophy & approach
+├── CONTENT_STANDARDS.md      # Pragmatic content approach
+├── ISSUES_ROADMAP.md          # What we're building
+├── session-*/                # 8 sessions (only 1-2 have content)
+│   ├── slides/
+│   ├── exercises/
+│   ├── assignment/
+│   └── resources/
+├── mvp-90min-session/         # Quick workshop version
+├── csc113-ai-fundamentals/   # Different course (some reusable)
+└── resources/                 # Shared materials
 ```
 
-## Development Guidelines
+## Development Setup
 
-1. This is primarily a course repository containing educational materials rather than executable code
-2. Focus on organizing course content, assignments, and resources clearly
-3. When adding new materials, follow the existing directory structure pattern
-4. Maintain consistency in file naming and organization across sessions
+### Local LLM Environment
+```bash
+# Install Ollama (macOS/Linux)
+curl -fsSL https://ollama.ai/install.sh | sh
 
-## Course Content Status
+# Pull a model
+ollama pull llama2
+ollama pull mistral
 
-### Completed Materials
-1. **Session 1: Introduction to LLMs**
-   - Session outline with timing
-   - Hands-on workshop exercises
-   - Assignment: Identifying LLM opportunities
-   - Quick reference guide
-   - LLM readiness checklist
+# Test it works
+ollama run llama2 "Hello world"
 
-2. **Session 2: LLM Provider Landscape** ✅
-   - Session outline with timing
-   - Hands-on provider comparison exercises (`session2_exercises.py`)
-   - Provider evaluation matrix template
-   - Quick reference handout with pricing
-   - Assignment: Provider comparison tool
+# For GPU acceleration (optional)
+# Check compatibility at ollama.ai/docs/gpu
+```
 
-3. **Instructor Materials**
-   - INSTRUCTOR_BEST_PRACTICES.md - Comprehensive guide on course design
-   - SESSION_TEMPLATE.md - Standardized template for all sessions
+### Python Environment
+```bash
+# Create virtual environment
+python3 -m venv venv
+source venv/bin/activate  # Linux/Mac
+# or
+venv\Scripts\activate     # Windows
 
-### Delivery Formats
-- **90-minute MVP Session**: Complete AI blog application using Streamlit + Supabase
-- **60-minute Lunch & Learn**: Condensed overview with interactive demos
-- **8-week Full Course**: Comprehensive curriculum (Sessions 1-2 completed)
+# Install core dependencies
+pip install langchain ollama openai anthropic
+pip install streamlit pandas numpy
+pip install python-dotenv requests
+```
 
-## API Credits and Security
+### Multi-Provider Setup
+```bash
+# Create .env for API keys (NEVER commit this)
+cat > .env << 'EOF'
+# Optional - only if testing cloud providers
+OPENAI_API_KEY=sk-...
+ANTHROPIC_API_KEY=sk-ant-...
+# Local models need no keys!
+EOF
 
-- Each student receives approximately $15 worth of API credits
-- API key management instructions are in `resources/api-keys-guide/`
-- Security best practices are covered in `session-4-api-integration/security-guide/`
+# Test provider abstraction
+python scripts/test_providers.py  # TODO: Create this
+```
 
-## Next Steps
+## Critical Development Patterns
 
-1. Develop Session 3: Effective One-on-One LLM Interaction
-2. Create Session 4: API Integration Fundamentals  
-3. Build more example projects
-4. Set up technical infrastructure for demos
+### 1. Always Provide Local Alternative
+```python
+# BAD - Vendor lock-in
+from openai import OpenAI
+client = OpenAI()
+
+# GOOD - Provider agnostic
+from langchain.llms import Ollama, OpenAI
+llm = Ollama(model="llama2") if LOCAL_MODE else OpenAI()
+```
+
+### 2. Privacy-First Design
+```python
+# BAD - Sends everything to cloud
+response = cloud_llm.complete(user_input)
+
+# GOOD - Sanitize first
+sanitized = remove_pii(user_input)
+response = llm.complete(sanitized)
+```
+
+### 3. Cost Transparency
+```python
+# Always track and display costs
+tokens_used = count_tokens(prompt + response)
+cost = calculate_cost(tokens_used, provider="openai")
+print(f"This request cost: ${cost:.4f}")
+```
+
+## What We Need Contributors to Build
+
+### High Priority (Blocking other work)
+1. **Local LLM lab exercises** - Get students running Ollama day 1
+2. **Privacy audit tool** - Show what data apps are leaking
+3. **Multi-provider chatbot** - Same code, multiple backends
+4. **Cost comparison matrix** - Real numbers, no BS
+
+### Medium Priority
+5. **Migration scripts** - Export from OpenAI/Claude/etc
+6. **PII detection lab** - Find and redact sensitive data
+7. **Prompt injection demos** - Security awareness
+8. **Performance benchmarks** - Local vs cloud reality check
+
+### Nice to Have
+9. **Docker environments** - One-click setup
+10. **Auto-grading** - For scalability
+11. **Video tutorials** - For different learning styles
+
+## Commit Standards
+
+```bash
+# Good commit messages
+git commit -m "Add Ollama setup guide for Week 1 lab"
+git commit -m "Fix privacy leak in provider abstraction"
+git commit -m "Refactor Session 2 to include open-source options"
+
+# Bad commit messages
+git commit -m "updates"
+git commit -m "fixed stuff"
+git commit -m "WIP"
+```
+
+## Testing Your Contributions
+
+### For Course Materials
+- [ ] Works with local models (Ollama/llama.cpp)
+- [ ] Includes cost analysis for cloud options
+- [ ] Has privacy implications documented
+- [ ] No vendor-specific patterns
+- [ ] Treats students as competent adults
+
+### For Code
+- [ ] Runs without cloud API keys
+- [ ] Has local fallback options
+- [ ] Sanitizes user data appropriately
+- [ ] Includes migration path
+- [ ] Documents trade-offs honestly
+
+## Common Pitfalls to Avoid
+
+1. **Don't assume cloud access** - Many students can't/won't pay
+2. **Don't hide complexity** - Show real costs and trade-offs
+3. **Don't patronize** - Students are adults, skip the hand-holding
+4. **Don't trust marketing** - Test everything, measure reality
+5. **Don't create lock-in** - Every solution needs an exit strategy
+
+## Where to Start
+
+1. Read `SYLLABUS_2025.md` - Understand the philosophy
+2. Check `ISSUES_ROADMAP.md` - Pick an issue to work on
+3. Look at Sessions 1-2 - See what needs updating
+4. Run local LLMs - Get familiar with Ollama
+5. Break something - Then fix it and document
+
+## Getting Help
+
+- **Philosophy questions**: Reference SYLLABUS_2025.md
+- **Technical issues**: Check if local models work first
+- **Privacy concerns**: Default to MORE privacy, not less
+- **Content standards**: See CONTENT_STANDARDS.md
+
+## The Bottom Line
+
+We're building a course that teaches REAL skills, not vendor propaganda. Every lab should work locally. Every tool should respect privacy. Every lesson should build vendor-independent competence.
+
+If you're adding content that requires a specific cloud provider, you're doing it wrong. If you're hiding costs or trade-offs, you're doing it wrong. If you're treating students like children, you're doing it wrong.
+
+Build tools you'd want to use. Teach skills that survive company bankruptcies. Respect user privacy like it's your own.
